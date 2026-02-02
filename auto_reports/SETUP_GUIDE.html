@@ -15,7 +15,7 @@
         h1 { color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
         h2 { margin-top: 30px; color: #334155; }
         code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-        pre { background: #1e293b; color: #f8fafc; padding: 20px; border-radius: 8px; overflow-x: auto; }
+        pre { background: #1e293b; color: #f8fafc; padding: 20px; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; }
         .step { background: #eff6ff; border-left: 4px solid var(--primary); padding: 15px; margin: 20px 0; }
         .warning { background: #fff7ed; border-left: 4px solid #f97316; padding: 15px; }
     </style>
@@ -42,32 +42,36 @@ on:
 jobs:
   report:
     runs-on: ubuntu-latest
+    # PERMISOS: Necesarios para leer el PR y guardar los archivos
+    permissions:
+      contents: write
+      pull-requests: read
     steps:
       - uses: actions/checkout@v4
       
       - name: Generate Business Reports
-        # Usando la acción pública que acabamos de crear
         uses: YuniorGlez/auto-reports@main
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          aura-config: '{
-            "branding": {
-              "projectName": "Nombre de Tu Proyecto",
-              "primaryColor": "#2563eb",
-              "secondaryColor": "#1e40af"
-            },
-            "behavior": {
-              "language": "es",
-              "reports": ["client", "pm", "dev", "user"]
-            }
-          }'</pre>
+          aura-config: >-
+            {
+              "branding": {
+                "projectName": "Nombre de Tu Proyecto",
+                "primaryColor": "#2563eb",
+                "secondaryColor": "#1e40af"
+              },
+              "behavior": {
+                "language": "es",
+                "reports": ["client", "pm", "dev", "user"]
+              }
+            }</pre>
 
         <h2>3. Variables de Personalización (aura-config)</h2>
         <p>El parámetro <code>aura-config</code> es un JSON que define la identidad visual de tus informes:</p>
         <ul>
-            <li><strong>projectName:</strong> El nombre de tu cliente o proyecto que aparecerá en el pie de página.</li>
+            <li><strong>projectName:</strong> El nombre de tu cliente o proyecto.</li>
             <li><strong>primaryColor:</strong> Color principal (cabeceras, acentos).</li>
             <li><strong>language:</strong> Idioma del informe (<code>"es"</code> o <code>"en"</code>).</li>
             <li><strong>reports:</strong> Lista de informes a generar (<code>client</code>, <code>pm</code>, <code>dev</code>, <code>user</code>).</li>
@@ -76,9 +80,6 @@ jobs:
         <div class="warning">
             <strong>¿Dónde están mis informes?</strong> Los archivos HTML se generarán automáticamente en la carpeta <code>auto_reports/pr-NUMERO/</code> de tu repositorio tras cada ejecución de la acción.
         </div>
-
-        <h2>4. Ventajas de usar la acción remota</h2>
-        <p>Al usar <code>uses: YuniorGlez/auto-reports@main</code>, tu proyecto se mantiene limpio. No necesitas copiar carpetas <code>src</code> ni <code>templates</code>; GitHub se encarga de todo el trabajo pesado.</p>
     </div>
 </body>
 </html>

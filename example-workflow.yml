@@ -3,15 +3,16 @@ name: Auto-Reports Business Value
 
 on:
   pull_request:
-    # Se ejecuta al abrir, actualizar o cerrar (mergear) un PR
+    # Se ejecuta al abrir, actualizar o cerrar un PR
     types: [opened, synchronize, closed]
 
 jobs:
   generate-business-reports:
     runs-on: ubuntu-latest
-    # Importante: dar permisos de escritura para que la acción pueda guardar los informes en el repo
+    # PERMISOS CRÍTICOS: Necesarios para leer el PR y escribir los informes en el repo
     permissions:
       contents: write
+      pull-requests: read
     
     steps:
       - name: Checkout Code
@@ -22,18 +23,19 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
-          # Token automático de GitHub (no necesitas configurarlo tú)
+          # Token de GitHub para operaciones de API (automático)
           github-token: ${{ secrets.GITHUB_TOKEN }}
           
-          # Configuración personalizada de branding e idioma
-          aura-config: '{
-            "branding": {
-              "projectName": "Mi Cliente / Proyecto",
-              "primaryColor": "#2563eb",
-              "secondaryColor": "#1e40af"
-            },
-            "behavior": {
-              "language": "es",
-              "reports": ["client", "pm", "dev", "user"]
+          # Configuración de Marca y Comportamiento (JSON)
+          aura-config: >-
+            {
+              "branding": {
+                "projectName": "Mi Cliente / Proyecto",
+                "primaryColor": "#2563eb",
+                "secondaryColor": "#1e40af"
+              },
+              "behavior": {
+                "language": "es",
+                "reports": ["client", "pm", "dev", "user"]
+              }
             }
-          }'
