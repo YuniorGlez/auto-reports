@@ -17,24 +17,23 @@
         code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
         pre { background: #1e293b; color: #f8fafc; padding: 20px; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; }
         .step { background: #eff6ff; border-left: 4px solid var(--primary); padding: 15px; margin: 20px 0; }
-        .warning { background: #fff7ed; border-left: 4px solid #f97316; padding: 15px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🚀 Guía de Configuración: SQUAADS Auto-Reports</h1>
-        <p>Auto-Reports transforma automáticamente tus Pull Requests en informes de valor de negocio. Sigue estos pasos para activarlo en cualquier repositorio utilizando la acción alojada en GitHub.</p>
+        <p>Sigue estos pasos para activar los informes automáticos en cualquier repositorio.</p>
 
-        <h2>1. Configura los Secretos en GitHub</h2>
-        <p>En el repositorio donde quieras usar los informes, ve a <strong>Settings > Secrets and variables > Actions</strong> y añade el siguiente secreto:</p>
+        <h2>1. Añade el Secreto en GitHub</h2>
+        <p>En el repositorio de destino, ve a <strong>Settings > Secrets and variables > Actions</strong> y crea:</p>
         <div class="step">
             <strong>GEMINI_API_KEY:</strong> Tu clave de API de Google AI Studio.
         </div>
 
-        <h2>2. Crea el flujo de trabajo (Workflow)</h2>
-        <p>Crea un archivo en <code>.github/workflows/auto-reports.yml</code> en tu proyecto con este contenido:</p>
+        <h2>2. Crea el archivo de Workflow</h2>
+        <p>Crea <code>.github/workflows/auto-reports.yml</code> con este código:</p>
         <pre>
-name: Auto-Reports Business Value
+name: Auto-Reports
 on:
   pull_request:
     types: [opened, synchronize, closed]
@@ -42,44 +41,27 @@ on:
 jobs:
   report:
     runs-on: ubuntu-latest
-    # PERMISOS: Necesarios para leer el PR y guardar los archivos
     permissions:
       contents: write
       pull-requests: read
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Generate Business Reports
-        uses: YuniorGlez/auto-reports@main
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - uses: YuniorGlez/auto-reports@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
           aura-config: >-
             {
               "branding": {
-                "projectName": "Nombre de Tu Proyecto",
-                "primaryColor": "#2563eb",
-                "secondaryColor": "#1e40af"
+                "projectName": "Mi Cliente",
+                "primaryColor": "#2563eb"
               },
               "behavior": {
-                "language": "es",
-                "reports": ["client", "pm", "dev", "user"]
+                "language": "es"
               }
             }</pre>
 
-        <h2>3. Variables de Personalización (aura-config)</h2>
-        <p>El parámetro <code>aura-config</code> es un JSON que define la identidad visual de tus informes:</p>
-        <ul>
-            <li><strong>projectName:</strong> El nombre de tu cliente o proyecto.</li>
-            <li><strong>primaryColor:</strong> Color principal (cabeceras, acentos).</li>
-            <li><strong>language:</strong> Idioma del informe (<code>"es"</code> o <code>"en"</code>).</li>
-            <li><strong>reports:</strong> Lista de informes a generar (<code>client</code>, <code>pm</code>, <code>dev</code>, <code>user</code>).</li>
-        </ul>
-
-        <div class="warning">
-            <strong>¿Dónde están mis informes?</strong> Los archivos HTML se generarán automáticamente en la carpeta <code>auto_reports/pr-NUMERO/</code> de tu repositorio tras cada ejecución de la acción.
-        </div>
+        <p><strong>Nota:</strong> Ahora la API Key se pasa como <code>gemini-api-key</code> dentro del bloque <code>with</code>, lo cual es más fiable en las versiones actuales de GitHub Actions.</p>
     </div>
 </body>
 </html>
