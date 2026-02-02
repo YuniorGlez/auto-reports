@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Configuración - Aura-Scope</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card: #ffffff;
+        }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: #1e293b; line-height: 1.6; padding: 40px; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--card); padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        h1 { color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        h2 { margin-top: 30px; color: #334155; }
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        pre { background: #1e293b; color: #f8fafc; padding: 20px; border-radius: 8px; overflow-x: auto; }
+        .step { background: #eff6ff; border-left: 4px solid var(--primary); padding: 15px; margin: 20px 0; }
+        .warning { background: #fff7ed; border-left: 4px solid #f97316; padding: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Guía de Configuración: Aura-Scope</h1>
+        <p>Aura-Scope transforma automáticamente tus Pull Requests en informes de valor de negocio. Sigue estos pasos para activarlo en cualquier repositorio.</p>
+
+        <h2>1. Configura los Secretos en GitHub</h2>
+        <p>Ve a <strong>Settings > Secrets and variables > Actions</strong> en tu repositorio y añade el siguiente secreto:</p>
+        <div class="step">
+            <strong>GEMINI_API_KEY:</strong> Tu clave de API de Google AI Studio.
+        </div>
+
+        <h2>2. Crea el flujo de trabajo (Workflow)</h2>
+        <p>Crea un archivo en <code>.github/workflows/aura-scope.yml</code> con este contenido:</p>
+        <pre>
+name: Aura-Scope Business Reports
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate Reports
+        uses: ./path-to-aura-scope-action # O la URL de la acción una vez publicada
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          aura-config: '{
+            "branding": {
+              "projectName": "Mi Proyecto Increíble",
+              "primaryColor": "#2563eb",
+              "secondaryColor": "#1e40af"
+            },
+            "behavior": {
+              "language": "es",
+              "reports": ["client", "pm", "dev", "user"]
+            }
+          }'</pre>
+
+        <h2>3. Variables de Personalización (AURA_CONFIG)</h2>
+        <p>El campo <code>aura-config</code> es un JSON que te permite tunear el informe:</p>
+        <ul>
+            <li><strong>projectName:</strong> El nombre que aparecerá en el pie del informe.</li>
+            <li><strong>primaryColor:</strong> Color principal (cabeceras, acentos).</li>
+            <li><strong>language:</strong> Usa <code>"es"</code> para español o <code>"en"</code> para inglés.</li>
+            <li><strong>reports:</strong> Escoge cuáles generar: <code>client</code>, <code>pm</code>, <code>dev</code>, <code>user</code>.</li>
+        </ul>
+
+        <div class="warning">
+            <strong>Nota Importante:</strong> Los informes se guardarán automáticamente en la carpeta <code>auto_reports/</code> de tu repositorio después de cada ejecución.
+        </div>
+
+        <h2>4. ¿Cómo ver los resultados?</h2>
+        <p>Cada vez que alguien abra o actualice un PR, Aura-Scope leerá el código y creará 4 archivos HTML dentro de <code>auto_reports/pr-NUMERO/</code>. ¡Listos para enviar al cliente o al equipo!</p>
+    </div>
+</body>
+</html>
