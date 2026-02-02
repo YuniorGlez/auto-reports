@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía de Configuración - Aura-Scope</title>
+    <title>Guía de Configuración - Auto-Reports</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -22,19 +22,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>🚀 Guía de Configuración: Aura-Scope</h1>
-        <p>Aura-Scope transforma automáticamente tus Pull Requests en informes de valor de negocio. Sigue estos pasos para activarlo en cualquier repositorio.</p>
+        <h1>🚀 Guía de Configuración: SQUAADS Auto-Reports</h1>
+        <p>Auto-Reports transforma automáticamente tus Pull Requests en informes de valor de negocio. Sigue estos pasos para activarlo en cualquier repositorio utilizando la acción alojada en GitHub.</p>
 
         <h2>1. Configura los Secretos en GitHub</h2>
-        <p>Ve a <strong>Settings > Secrets and variables > Actions</strong> en tu repositorio y añade el siguiente secreto:</p>
+        <p>En el repositorio donde quieras usar los informes, ve a <strong>Settings > Secrets and variables > Actions</strong> y añade el siguiente secreto:</p>
         <div class="step">
             <strong>GEMINI_API_KEY:</strong> Tu clave de API de Google AI Studio.
         </div>
 
         <h2>2. Crea el flujo de trabajo (Workflow)</h2>
-        <p>Crea un archivo en <code>.github/workflows/aura-scope.yml</code> con este contenido:</p>
+        <p>Crea un archivo en <code>.github/workflows/auto-reports.yml</code> en tu proyecto con este contenido:</p>
         <pre>
-name: Aura-Scope Business Reports
+name: Auto-Reports Business Value
 on:
   pull_request:
     types: [opened, synchronize, closed]
@@ -44,15 +44,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generate Reports
-        uses: ./path-to-aura-scope-action # O la URL de la acción una vez publicada
+      
+      - name: Generate Business Reports
+        # Usando la acción pública que acabamos de crear
+        uses: YuniorGlez/auto-reports@main
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           aura-config: '{
             "branding": {
-              "projectName": "Mi Proyecto Increíble",
+              "projectName": "Nombre de Tu Proyecto",
               "primaryColor": "#2563eb",
               "secondaryColor": "#1e40af"
             },
@@ -62,21 +64,21 @@ jobs:
             }
           }'</pre>
 
-        <h2>3. Variables de Personalización (AURA_CONFIG)</h2>
-        <p>El campo <code>aura-config</code> es un JSON que te permite tunear el informe:</p>
+        <h2>3. Variables de Personalización (aura-config)</h2>
+        <p>El parámetro <code>aura-config</code> es un JSON que define la identidad visual de tus informes:</p>
         <ul>
-            <li><strong>projectName:</strong> El nombre que aparecerá en el pie del informe.</li>
+            <li><strong>projectName:</strong> El nombre de tu cliente o proyecto que aparecerá en el pie de página.</li>
             <li><strong>primaryColor:</strong> Color principal (cabeceras, acentos).</li>
-            <li><strong>language:</strong> Usa <code>"es"</code> para español o <code>"en"</code> para inglés.</li>
-            <li><strong>reports:</strong> Escoge cuáles generar: <code>client</code>, <code>pm</code>, <code>dev</code>, <code>user</code>.</li>
+            <li><strong>language:</strong> Idioma del informe (<code>"es"</code> o <code>"en"</code>).</li>
+            <li><strong>reports:</strong> Lista de informes a generar (<code>client</code>, <code>pm</code>, <code>dev</code>, <code>user</code>).</li>
         </ul>
 
         <div class="warning">
-            <strong>Nota Importante:</strong> Los informes se guardarán automáticamente en la carpeta <code>auto_reports/</code> de tu repositorio después de cada ejecución.
+            <strong>¿Dónde están mis informes?</strong> Los archivos HTML se generarán automáticamente en la carpeta <code>auto_reports/pr-NUMERO/</code> de tu repositorio tras cada ejecución de la acción.
         </div>
 
-        <h2>4. ¿Cómo ver los resultados?</h2>
-        <p>Cada vez que alguien abra o actualice un PR, Aura-Scope leerá el código y creará 4 archivos HTML dentro de <code>auto_reports/pr-NUMERO/</code>. ¡Listos para enviar al cliente o al equipo!</p>
+        <h2>4. Ventajas de usar la acción remota</h2>
+        <p>Al usar <code>uses: YuniorGlez/auto-reports@main</code>, tu proyecto se mantiene limpio. No necesitas copiar carpetas <code>src</code> ni <code>templates</code>; GitHub se encarga de todo el trabajo pesado.</p>
     </div>
 </body>
 </html>
