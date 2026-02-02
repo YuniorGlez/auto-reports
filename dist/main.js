@@ -75909,7 +75909,13 @@ import * as fs6 from "fs";
 import * as path4 from "path";
 async function run() {
   try {
-    const apiKey = getInput("gemini-api-key") || process.env.GEMINI_API_KEY;
+    const inputKey = getInput("gemini-api-key");
+    const envKey = process.env.GEMINI_API_KEY;
+    if (inputKey)
+      info("✅ API Key encontrada vía input 'gemini-api-key'");
+    if (envKey)
+      info("✅ API Key encontrada vía variable de entorno 'GEMINI_API_KEY'");
+    const apiKey = inputKey || envKey;
     if (!apiKey) {
       throw new Error("GEMINI_API_KEY no encontrada. Asegúrate de pasarla en el bloque 'env:' o como input.");
     }

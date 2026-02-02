@@ -10,7 +10,13 @@ import * as path from "path";
 async function run() {
   try {
     // Buscar la API Key en inputs primero, luego en env
-    const apiKey = core.getInput("gemini-api-key") || process.env.GEMINI_API_KEY;
+    const inputKey = core.getInput("gemini-api-key");
+    const envKey = process.env.GEMINI_API_KEY;
+    
+    if (inputKey) core.info("✅ API Key encontrada vía input 'gemini-api-key'");
+    if (envKey) core.info("✅ API Key encontrada vía variable de entorno 'GEMINI_API_KEY'");
+
+    const apiKey = inputKey || envKey;
     
     if (!apiKey) {
       throw new Error("GEMINI_API_KEY no encontrada. Asegúrate de pasarla en el bloque 'env:' o como input.");
