@@ -16,7 +16,7 @@
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: AI Integration' (Protocol in workflow.md)
 
 ## Phase 3: Templating & Branding
-- [ ] Task: HTML/Handlebars Templates
+- [x] Task: HTML/Handlebars Templates (8e247b0)
     - [ ] Create the base HTML structure with Handlebars placeholders
 - [ ] Task: Dynamic Branding Injection
     - [ ] Implement logic to inject project-specific CSS variables based on configuration
