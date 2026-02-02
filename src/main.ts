@@ -9,9 +9,11 @@ import * as path from "path";
 
 async function run() {
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
+    // Buscar la API Key en inputs primero, luego en env
+    const apiKey = core.getInput("gemini-api-key") || process.env.GEMINI_API_KEY;
+    
     if (!apiKey) {
-      throw new Error("GEMINI_API_KEY environment variable is not set.");
+      throw new Error("GEMINI_API_KEY no encontrada. Asegúrate de pasarla en el bloque 'env:' o como input.");
     }
 
     core.info("🚀 Starting Aura-Scope Report Generation...");

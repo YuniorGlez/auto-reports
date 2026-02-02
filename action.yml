@@ -10,6 +10,9 @@ inputs:
     description: "GitHub token for API access"
     required: true
     default: ${{ github.token }}
+  gemini-api-key:
+    description: "Google Gemini API Key"
+    required: false
   aura-config:
     description: "JSON string for branding and behavior configuration"
     required: false

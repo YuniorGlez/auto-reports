@@ -75909,9 +75909,9 @@ import * as fs6 from "fs";
 import * as path4 from "path";
 async function run() {
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = getInput("gemini-api-key") || process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      throw new Error("GEMINI_API_KEY environment variable is not set.");
+      throw new Error("GEMINI_API_KEY no encontrada. Asegúrate de pasarla en el bloque 'env:' o como input.");
     }
     info("\uD83D\uDE80 Starting Aura-Scope Report Generation...");
     const config2 = getConfig();
