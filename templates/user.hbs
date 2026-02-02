@@ -1,0 +1,19 @@
+<section>
+    <h2>What's New</h2>
+    {{#each new_features}}
+    <div class="item">
+        <span class="item-title">{{feature_name}}</span>
+        <p><strong>Benefit:</strong> {{benefit}}</p>
+        <p><em>How to use:</em> {{how_to_use}}</p>
+    </div>
+    {{/each}}
+</section>
+
+<section>
+    <h2>Improvements & Fixes</h2>
+    <ul>
+        {{#each improvements_and_fixes}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+</section>

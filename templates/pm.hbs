@@ -1,0 +1,25 @@
+<section>
+    <h2>Roadmap Alignment</h2>
+    <div class="item">
+        <span class="item-title">Features Delivered</span>
+        <ul>
+            {{#each roadmap_alignment.feature_delivery}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="item">
+        <span class="item-title">Technical Debt Impact</span>
+        <p>{{roadmap_alignment.technical_debt_impact}}</p>
+    </div>
+</section>
+
+<section>
+    <h2>Key Metrics</h2>
+    {{#each key_metrics_improvement}}
+    <div class="item">
+        <span class="item-title">{{metric}}</span>
+        <p>{{change}}</p>
+    </div>
+    {{/each}}
+</section>

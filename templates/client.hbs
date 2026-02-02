@@ -1,0 +1,15 @@
+<section>
+    <h2>Strategic Pillars</h2>
+    {{#each strategic_pillars}}
+    <div class="item">
+        <span class="item-title">{{pillar_name}}</span>
+        <p>{{business_impact}}</p>
+        <div class="pill">ROI: {{roi_analysis}}</div>
+    </div>
+    {{/each}}
+</section>
+
+<section>
+    <h2>Risk Mitigation</h2>
+    <p>{{risk_mitigation}}</p>
+</section>

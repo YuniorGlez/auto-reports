@@ -1,0 +1,26 @@
+<section>
+    <h2>Major Technical Changes</h2>
+    {{#each major_technical_changes}}
+    <div class="item">
+        <span class="item-title">{{component}}</span>
+        <p>{{change_description}}</p>
+        <div style="font-size: 13px; color: #666; background: #f9f9f9; padding: 10px; border-radius: 4px;">
+            <strong>Refactoring Note:</strong> {{refactoring_notes}}
+        </div>
+    </div>
+    {{/each}}
+</section>
+
+<section>
+    <h2>Dependency Updates</h2>
+    <ul>
+        {{#each dependency_updates}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+</section>
+
+<section>
+    <h2>Security & Performance</h2>
+    <p>{{security_performance_impact}}</p>
+</section>
