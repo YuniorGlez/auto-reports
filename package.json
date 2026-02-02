@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "test": "bun test",
-    "check": "bun x tsc --noEmit && bun test"
+    "check": "bun x tsc --noEmit && bun test",
+    "build": "bun build ./src/main.ts --target node --outdir ./dist"
   },
   "private": true,
   "devDependencies": {
