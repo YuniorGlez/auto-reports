@@ -1,0 +1,20 @@
+{
+  "type": "OBJECT",
+  "properties": {
+    "executive_summary": { "type": "STRING" },
+    "strategic_pillars": {
+      "type": "ARRAY",
+      "items": {
+        "type": "OBJECT",
+        "properties": {
+          "pillar_name": { "type": "STRING" },
+          "business_impact": { "type": "STRING" },
+          "roi_analysis": { "type": "STRING" }
+        },
+        "required": ["pillar_name", "business_impact", "roi_analysis"]
+      }
+    },
+    "risk_mitigation": { "type": "STRING" }
+  },
+  "required": ["executive_summary", "strategic_pillars", "risk_mitigation"]
+}

@@ -1,0 +1,29 @@
+{
+  "type": "OBJECT",
+  "properties": {
+    "operational_overview": { "type": "STRING" },
+    "roadmap_alignment": {
+      "type": "OBJECT",
+      "properties": {
+        "feature_delivery": {
+          "type": "ARRAY",
+          "items": { "type": "STRING" }
+        },
+        "technical_debt_impact": { "type": "STRING" }
+      },
+      "required": ["feature_delivery", "technical_debt_impact"]
+    },
+    "key_metrics_improvement": {
+      "type": "ARRAY",
+      "items": {
+        "type": "OBJECT",
+        "properties": {
+          "metric": { "type": "STRING" },
+          "change": { "type": "STRING" }
+        },
+        "required": ["metric", "change"]
+      }
+    }
+  },
+  "required": ["operational_overview", "roadmap_alignment", "key_metrics_improvement"]
+}

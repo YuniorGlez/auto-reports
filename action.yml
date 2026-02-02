@@ -1,0 +1,19 @@
+name: "SQUAADS Aura-Scope"
+description: "Automatically transform PR technical changes into business-centric ROI reports."
+author: "SQUAADS"
+branding:
+  icon: "activity"
+  color: "blue"
+
+inputs:
+  github-token:
+    description: "GitHub token for API access"
+    required: true
+    default: ${{ github.token }}
+  aura-config:
+    description: "JSON string for branding and behavior configuration"
+    required: false
+
+runs:
+  using: "bun"
+  main: "src/main.ts"

@@ -1,0 +1,24 @@
+{
+  "type": "OBJECT",
+  "properties": {
+    "architectural_overview": { "type": "STRING" },
+    "major_technical_changes": {
+      "type": "ARRAY",
+      "items": {
+        "type": "OBJECT",
+        "properties": {
+          "component": { "type": "STRING" },
+          "change_description": { "type": "STRING" },
+          "refactoring_notes": { "type": "STRING" }
+        },
+        "required": ["component", "change_description", "refactoring_notes"]
+      }
+    },
+    "dependency_updates": {
+      "type": "ARRAY",
+      "items": { "type": "STRING" }
+    },
+    "security_performance_impact": { "type": "STRING" }
+  },
+  "required": ["architectural_overview", "major_technical_changes", "dependency_updates", "security_performance_impact"]
+}
