@@ -24,7 +24,7 @@
 
 ## Phase 4: Persistence & GitHub Action Packaging
 - [ ] Task: Persistence Logic
-    - [ ] Implement report saving to the `/advances` folder
+    - [ ] Implement report saving to the `/auto_reports` folder
 - [ ] Task: Action Entry Point
     - [ ] Finalize `action.yml` and the main entry point to orchestrate all phases
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Final Action' (Protocol in workflow.md)

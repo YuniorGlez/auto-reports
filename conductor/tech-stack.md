@@ -20,4 +20,4 @@ This document outlines the technical foundation for the SQUAADS Aura-Scope GitHu
 
 ## 5. Persistence
 - **Storage**: Local filesystem within the repository.
-- **Organization**: A dedicated `/advances` folder, structured to maintain a chronological history of business-value delivery linked to PR activity.
+- **Organization**: A dedicated `/auto_reports` folder, structured to maintain a chronological history of business-value delivery linked to PR activity.

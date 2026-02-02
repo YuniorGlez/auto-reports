@@ -14,14 +14,14 @@ Desarrolla una GitHub Action avanzada que transforme cada Pull Request en un con
 
 ### Core Goals
 - **Bridging the Communication Gap**: Automatically translate technical code changes into business-centric narratives.
-- **Historical Transparency**: Maintain a persistent 'advances' folder to serve as an automated, auditable record of project evolution.
+- **Historical Transparency**: Maintain a persistent 'auto_reports' folder to serve as an automated, auditable record of project evolution.
 - **Consistency & Branding**: Ensure every project has a unique yet structurally consistent visual identity for its reports from day one.
 
 ### Key Features
 - **Intelligent PR Extraction**: Capture diffs, commit messages, and PR descriptions (handling cases where descriptions may be empty).
 - **LLM Synthesis (Gemini REST)**: Use Gemini (specifically `gemini-flash-lite-latest` or equivalent) via direct REST API calls (`streamGenerateContent`) to transform technical data into three distinct reports.
 - **Standardized Templating**: Implement an HTML/CSS template system that is generated/configured at project start with custom branding (colors, logos).
-- **Automated Persistence**: Seamlessly update the 'advances' folder in the repository upon PR merge/activity.
+- **Automated Persistence**: Seamlessly update the 'auto_reports' folder in the repository upon PR merge/activity.
 
 ### Technical Constraints
 - **API Protocol**: All AI processing MUST use the Google Generative Language REST API (`v1beta`).
