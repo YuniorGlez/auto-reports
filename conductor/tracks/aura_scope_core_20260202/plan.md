@@ -9,7 +9,7 @@
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
 
 ## Phase 2: Data Extraction & Gemini Integration
-- [ ] Task: PR Metadata Extraction
+- [x] Task: PR Metadata Extraction (b50411c)
     - [ ] Implement logic using `@actions/github` to fetch PR diffs and descriptions
 - [ ] Task: Gemini REST API Client
     - [ ] Implement the `streamGenerateContent` REST call following the `gemini-example.md` pattern
