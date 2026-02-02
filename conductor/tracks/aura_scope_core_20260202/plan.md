@@ -8,7 +8,7 @@
     - [ ] Create initial system prompts for the 4 report types in `prompts/`
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
 
-## Phase 2: Data Extraction & Gemini Integration
+## Phase 2: Data Extraction ## Phase 2: Data Extraction & Gemini Integration Gemini Integration [checkpoint: 21530f7]
 - [x] Task: PR Metadata Extraction (b50411c)
     - [ ] Implement logic using `@actions/github` to fetch PR diffs and descriptions
 - [x] Task: Gemini REST API Client (924e36e)
