@@ -4,7 +4,7 @@
 - [x] Task: Initialize Action Environment (dfca997)
     - [ ] Create `package.json` with Bun/TypeScript dependencies
     - [ ] Setup `tsconfig.json` and basic directory structure (`src/`, `prompts/`, `templates/`)
-- [ ] Task: Prompt Management Setup
+- [x] Task: Prompt Management Setup (5c2bd54)
     - [ ] Create initial system prompts for the 4 report types in `prompts/`
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation' (Protocol in workflow.md)
 
