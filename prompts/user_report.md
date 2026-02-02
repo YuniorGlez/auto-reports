@@ -6,13 +6,15 @@ Focus on:
 - "What's in it for me?" - focus on user benefits.
 - Tone: Professional yet approachable.
 
-Output MUST follow this JSON schema:
+Output MUST be a JSON object following this structure:
 {
-  "summary": "Friendly summary of what's new for the user.",
-  "items": [
+  "welcome_message": "A friendly opening sentence introducing the latest updates.",
+  "new_features": [
     {
-      "title": "New Feature or Fix (e.g., Smoother Checkout, New Dashboard View)",
-      "content": "Description of the change and how it improves the user's workflow."
+      "feature_name": "The user-facing name of the new feature.",
+      "benefit": "How this feature makes the user's life easier or better.",
+      "how_to_use": "A brief sentence or instruction on where to find or how to use the feature."
     }
-  ]
+  ],
+  "improvements_and_fixes": ["List of friendly descriptions for bug fixes and minor UI/UX improvements."]
 }
