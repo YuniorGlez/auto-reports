@@ -1,3 +1,5 @@
+import { GoogleGenAI } from "@google/genai";
+
 export interface GeminiConfig {
   prompt: string;
   input: string;
@@ -15,43 +17,31 @@ export async function generateReport(config: GeminiConfig): Promise<any> {
     model = "gemini-flash-lite-latest"
   } = config;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const client = new GoogleGenAI({ apiKey });
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      systemInstruction: {
-        parts: [{ text: prompt }]
-      },
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: input }]
-        }
-      ],
-      generationConfig: {
-        responseMimeType: "application/json",
-        responseSchema: schema
+  const response = await client.models.generateContent({
+    model,
+    contents: [
+      {
+        role: "user",
+        parts: [{ text: input }]
       }
-    })
+    ],
+    config: {
+      systemInstruction:  [{ text: prompt }],
+      responseMimeType: "application/json",
+      responseSchema: schema,
+      // 2026 default: disable thinking for structured extraction unless needed
+      thinkingConfig: { thinkingBudget: 0 }
+    }
   });
 
-  if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(`Gemini API error (${response.status}): ${errorBody}`);
+  const textResponse = response.text;
+  
+  if (!textResponse) {
+    throw new Error("Gemini API returned an empty response.");
   }
 
-  const data = await response.json();
-  
-  if (!data.candidates || data.candidates.length === 0) {
-    throw new Error("Gemini API returned no candidates.");
-  }
-
-  const textResponse = data.candidates[0].content.parts[0].text;
-  
   try {
     return JSON.parse(textResponse);
   } catch (e) {

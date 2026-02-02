@@ -18,6 +18,8 @@
   "dependencies": {
     "@actions/core": "^3.0.0",
     "@actions/github": "^9.0.0",
-    "handlebars": "^4.7.8"
+    "@google/genai": "^1.39.0",
+    "handlebars": "^4.7.8",
+    "mime": "^4.1.0"
   }
 }

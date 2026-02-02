@@ -1,43 +1,35 @@
 import { expect, test, describe, mock } from "bun:test";
+
+// Mock @google/genai before importing generateReport
+mock.module("@google/genai", () => {
+  return {
+    GoogleGenAI: class {
+      models = {
+        generateContent: async (params: any) => {
+          return {
+            text: JSON.stringify({
+              summary: "This is a summary",
+              items: []
+            })
+          };
+        }
+      };
+    }
+  };
+});
+
 import { generateReport } from "./gemini";
 
 describe("gemini api client", () => {
-  test("generateReport should call Gemini API and return structured data", async () => {
-    // We will mock the global fetch
-    const mockFetch = mock(async (url: string, options: any) => {
-      return new Response(JSON.stringify({
-        candidates: [
-          {
-            content: {
-              parts: [
-                {
-                  text: JSON.stringify({
-                    summary: "This is a summary",
-                    items: []
-                  })
-                }
-              ]
-            }
-          }
-        ]
-      }));
-    });
-    
-    global.fetch = mockFetch;
-
+  test("generateReport should use @google/genai SDK and return structured data", async () => {
     const result = await generateReport({
       prompt: "System instructions",
       input: "Technical data",
       apiKey: "fake-api-key",
-      schema: { type: "object", properties: { summary: { type: "string" } } }
+      schema: { type: "OBJECT", properties: { summary: { type: "STRING" } } }
     });
 
     expect(result).toHaveProperty("summary");
-    expect(mockFetch).toHaveBeenCalled();
-    
-    const [url, options] = mockFetch.mock.calls[0] as [string, any];
-    expect(url).toContain("gemini-flash-lite-latest:generateContent");
-    expect(url).toContain("key=fake-api-key");
-    expect(options.method).toBe("POST");
+    expect(result.summary).toBe("This is a summary");
   });
 });
