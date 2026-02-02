@@ -1,7 +1,7 @@
 # Implementation Plan: Aura-Scope Core
 
 ## Phase 1: Foundation & Scaffolding
-- [ ] Task: Initialize Action Environment
+- [x] Task: Initialize Action Environment (dfca997)
     - [ ] Create `package.json` with Bun/TypeScript dependencies
     - [ ] Setup `tsconfig.json` and basic directory structure (`src/`, `prompts/`, `templates/`)
 - [ ] Task: Prompt Management Setup
